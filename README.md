@@ -1,6 +1,9 @@
 # MinecraftInfoAPI
 A convenient api to get Minecraft uuid and skin
 
+If you cannot read Chinese, please use Google Translate
+==
+
 `MinecraftInfoAPI` 是一个可以让你轻松获取`Minecraft` 玩家信息的api
 
 目前,`MinecraftInfoAPI` 有以下功能:
