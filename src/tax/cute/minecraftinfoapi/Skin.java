@@ -22,10 +22,11 @@ public class Skin {
 
     public static Skin getSkin(String uuid) throws IOException {
         String jsonString = Util.getWebText(ApiUrl.SKIN_API + uuid);
+        if(jsonString == null) return null;
         JSONObject json = JSONObject.parseObject(jsonString);
 
         if(json == null)
-            return new Skin(null,null,-1,null,null);
+            return null;
 
         JSONArray properties_array = json.getJSONArray("properties");
         JSONObject properties_object = properties_array.getJSONObject(0);

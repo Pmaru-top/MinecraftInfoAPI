@@ -40,6 +40,7 @@ public class Status {
     public static Status getStatus() throws IOException {
         //get json string
         String jsonText = Util.getWebText(ApiUrl.STATUS_API);
+        if(jsonText == null) return null;
         JSONArray array = JSON.parseArray(jsonText);
         if(array == null) return null;
 

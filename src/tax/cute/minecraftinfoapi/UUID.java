@@ -16,10 +16,9 @@ public class UUID {
 
     public static UUID getId(String userName) throws IOException {
         String jsonText = Util.getWebText(ApiUrl.USER_NAME_TO_UUID_API + userName);
+        if(jsonText == null) return null;
         JSONObject jsonObject = JSON.parseObject(jsonText);
-
-        if (jsonObject == null)
-            return new UUID(null,null);
+        if (jsonObject == null) return null;
 
         String name = jsonObject.getString("name");
         String id = jsonObject.getString("id");

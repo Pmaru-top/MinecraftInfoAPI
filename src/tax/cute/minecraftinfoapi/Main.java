@@ -12,11 +12,15 @@ public class Main {
         System.out.println();
         getSkin("e3beb716-afa1-451b-96c6-ddfebd1ce1fb");
         System.out.println();
-        getNameHistory("e3beb716-afa1-451b-96c6-ddfebd1ce1fb");
+        getPlayer("e3beb716-afa1-451b-96c6-ddfebd1ce1fb");
     }
 
     static void getUUid(String userName) throws IOException{
         UUID uuid = UUID.getId(userName);
+        if (uuid == null) {
+            System.out.println("Failed to get uuid");
+            return;
+        }
         System.out.println(
                 "uuid of " + uuid.getName() + " is:" + uuid.getId()
         );
@@ -31,7 +35,11 @@ public class Main {
 
     static void getSkin(String uuid) throws IOException{
         Skin skin = Skin.getSkin(uuid);
-            System.out.println("The link to this skin is:" + skin.getSkinUrl());
+        if (skin == null) {
+            System.out.println("Failed to get skin");
+            return;
+        }
+        System.out.println("The link to this skin is:" + skin.getSkinUrl());
 //        System.out.println("The link to this skin is:" + skin.getCapeUrl());
         boolean isDownloadSkin = false;
         boolean isDownloadCape = false;
@@ -53,19 +61,23 @@ public class Main {
 //        }
     }
 
-    static void getNameHistory(String uuid){
-        NameHistory nameHistory = NameHistory.getNameHistory(uuid);
-        if (nameHistory.getData() == null) {
-            System.out.println("no data");
+    static void getPlayer(String uuid){
+        PlayerInfo info = PlayerInfo.getPlayerInfo(uuid);
+        if (info == null) {
+            System.out.println("Failed to get player information");
             return;
         }
-        for (int i = 0; i < nameHistory.getData().size(); i++) {
-            System.out.println(nameHistory.getData().get(i).getName());
-            if (nameHistory.getData().get(i).getTimestamp() != -1) {
-                System.out.println(nameHistory.getData().get(i).getTime());
-            } else {
-                System.out.println("init username");
-            }
+        System.out.println("Now name:" + info.getNowName());
+        System.out.println("Init name:" + info.getInitName());
+        System.out.println();
+        for (int i = 0; i < info.getData().size(); i++) {
+            String time;
+            if(info.getData().get(i).getTimestamp() != -1)
+                time = info.getData().get(i).getTime();
+            else
+                time = "Init Name";
+            System.out.println("Name:" + info.getData().get(i).getName());
+            System.out.println("Change time:" + time);
             System.out.println();
         }
     }
