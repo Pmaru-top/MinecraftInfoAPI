@@ -6,16 +6,18 @@ import java.util.List;
 import java.util.Set;
 
 import com.alibaba.fastjson.*;
+import tax.cute.minecraftinfoapi.utils.ApiUrl;
+import tax.cute.minecraftinfoapi.utils.Http;
 
 public class Status {
-    private String minecraft_net;
-    private String session_minecraft_net;
-    private String account_mojang_com;
-    private String authserver_mojang_com;
-    private String sessionserver_mojang_com;
-    private String api_mojang_com;
-    private String textures_minecraft_net;
-    private String mojang_com;
+    private final String minecraft_net;
+    private final String session_minecraft_net;
+    private final String account_mojang_com;
+    private final String authserver_mojang_com;
+    private final String sessionserver_mojang_com;
+    private final String api_mojang_com;
+    private final String textures_minecraft_net;
+    private final String mojang_com;
 
     public Status(
             String minecraft_net,
@@ -38,8 +40,7 @@ public class Status {
     }
 
     public static Status getStatus() throws IOException {
-        //get json string
-        String jsonText = Util.getWebText(ApiUrl.STATUS_API);
+        String jsonText = Http.getHttp(ApiUrl.STATUS).getTextString();
         if(jsonText == null) return null;
         JSONArray array = JSON.parseArray(jsonText);
         if(array == null) return null;
